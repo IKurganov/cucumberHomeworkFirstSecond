@@ -20,10 +20,12 @@ public class PetstoreUserTest {
         /*
         Проверить успешное создание юзера
         Вызвать гет метод для пользователя тестового - 200 статус и несколько параметров
+
+         !!!Тест- частично флаки из-за метода ГЕТ, но это проблемы самого сервиса
         */
 
 
-        String username = new Faker().name().username();
+        String username = new Faker().name().firstName();
         String firstName = new Faker().name().firstName();
 
         PetstoreUser user = PetstoreUser.builder()
@@ -46,7 +48,7 @@ public class PetstoreUserTest {
                 body("message", equalTo("100"));
 
         // надо подождать, пока наш сервис отработает - иначе падает ошибка
-        Thread.sleep(4000);
+        Thread.sleep(4500);
 
         response = petstoreApi.getUser(username);
         response.then().
@@ -145,11 +147,11 @@ public class PetstoreUserTest {
         */
         String petName = "Борис животное";
         String status = "lull"; // усыпить
-        ArrayList<String> photoUrls = new ArrayList<String>();
+        ArrayList<String> photoUrls = new ArrayList<>();
         photoUrls.add("google.com");
         photoUrls.add("ya.ru");
 
-        ArrayList<Tag> tags = new ArrayList<Tag>();
+        ArrayList<Tag> tags = new ArrayList<>();
         tags.add(Tag.builder().id(5L).name("TestTag").build());
 
         Pet pet = Pet.builder()
