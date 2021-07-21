@@ -6,13 +6,15 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
-public class PetstoreUserApi {
-    private static final String BASE_URI = "https://petstore.swagger.io/v2/";
+public class PetstoreApi {
     private RequestSpecification spec;
+
+    private static final String BASE_URI = "https://petstore.swagger.io/v2/";
     private static final String USER = "/user";
+    private static final String PET = "/pet";
 
 
-    public PetstoreUserApi(){
+    public PetstoreApi(){
         spec = given()
                 .baseUri(BASE_URI)
                 .contentType(ContentType.JSON);
@@ -33,6 +35,15 @@ public class PetstoreUserApi {
                 .log().all()
                 .when()
                 .post(USER);
+    }
+
+    public Response createPet(Pet pet){
+        return given(spec)
+                .with()
+                .body(pet)
+                .log().all()
+                .when()
+                .post(PET);
     }
 
 
